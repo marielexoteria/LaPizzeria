@@ -1,0 +1,11 @@
+Migration tutorial from: https://www.wpexplorer.com/migrating-wordpress-website/
+
+Puede ser que haya que crear el .htaccess, en cuyo caso yendo a WP > Settings > Permalinks > Cambiar el post a cualquier otra opción > Save Changes, puede ser que el mismo WP genere el código y uno tenga que copiarlo/pegarlo en un editor tipo TextEdit, luego grabar el archivo .htaccess en el directorio del tema. En este caso lo grabé en /Applications/XAMPP/xamppfiles/htdocs/wp_course_eng/lapizzeria - luego cambié la opción a Permalinks > Day and name (o la opción por default que tenga el WP site, según como se haya creado), grabé y se resolvió el problema. En el directorio tb pude ver el archivo .htaccess que antes no estaba.
+
+=====
+Workaround: 
+
+Si da error de que object not found después de cambiar los URLs (manual) en la base de datos y lo de arriba no funciona, usé la respuesta de Clapham, fecha de Jul 27 '17 at 10:11:
+https://stackoverflow.com/questions/13149418/the-requested-url-about-was-not-found-on-this-server
+
+Esto cambió los URLs de las páginas y demás de http://localhost/wp_course_eng/lapizzeria/PÁGINA a http://localhost/wp_course_eng/lapizzeria/index.php/PÁGINA - no encuentro el htaccess en la mac.

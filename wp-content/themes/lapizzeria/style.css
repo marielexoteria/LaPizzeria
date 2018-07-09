@@ -1,0 +1,442 @@
+/*
+Theme name: La Pizzeria
+Theme URI: 
+Author: Mariel Backman
+Author URI: www.behance.net/marielbackman
+Description: Theme for restaurants. Created on the Udemy course "Profesional Wordpress Theme Development" by Juan Pablo de la Torre
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl.html
+Tags: restaurant, mobile first, responsive, pizza
+Text Domain: lapizzeria
+*/
+
+/* Beginning of: global styles */
+html {
+	box-sizing:border-box; /* prevents any element to keep the specified width, without adding any measurement such as padding or margin */
+	font-family: 'Open Sans', sans-serif;
+}
+
+body {
+	margin:0;
+}
+
+*, *:before, *:after {
+	box-sizing:inherit; /* recommended to use when using box-sizing */
+}
+
+h1, h2, h3, h4, h5 {
+	font-family: 'Raleway', sans-serif;
+	font-weight:900;
+}
+
+h1 {
+	font-size: 48px;
+}
+
+h2 {
+	font-size: 40px;
+}
+
+h3 {
+	font-size: 28px;
+}
+
+h4 {
+	font-size: 24px;
+}
+
+.clear, .clear::after {
+	content: '';
+	clear: both;
+	display: block;
+}
+
+.container {
+	max-width: 1100px;
+	width: 100%;
+	margin: 0 auto;
+}
+
+.text-center {
+	text-align: center;
+}
+
+img { /* this is needed so that the pictures on the boxes in "about us" can be responsive */
+    width: 100% ;
+}
+/* End of: global styles */
+
+/* Beginning of: header */
+header.site-header {
+	border-bottom: 1px solid #C1C1C1;
+	padding-bottom: 30px;
+}
+
+div.logo { /* original del curso - no centraliza el logo */
+	text-align: center;
+}
+
+@media only screen and (min-width: 768px) {
+	div.logo {
+		text-align: left;
+	}
+}
+
+@media only screen and (min-width: 992px) {
+	div.logo {
+		text-align: center;
+	}
+}
+
+img.logoimage {
+	width: 250px;
+}
+
+@media only screen and (min-width: 768px) {
+	header.site-header .container {
+		position: relative;
+	}
+	
+	header.site-header .header-information {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+}
+
+.sr-text {
+	display: none;
+}
+
+div.address {
+	display: block;
+	clear: both;
+	padding-top: 10px;
+}
+
+div.address p {
+	margin: 0;
+	font-size: 14px;
+	text-align: center; /* mobile version */
+}
+
+@media only screen and (min-width: 768px) {
+	div.address p {
+		text-align: right;
+	}
+}
+
+/* End of: header */
+
+/* Beginning of: social menu */
+nav.socials ul {
+	list-style: none;
+	text-align: center;
+	padding: 0;
+}
+
+@media only screen and (min-width: 768px) {
+	nav.socials ul {
+		float: right;
+	}
+}
+
+nav.socials ul li {
+	position: relative;
+	display: inline-block;
+}
+
+nav.socials ul li a:before {
+	font-family: 'FontAwesome';
+	display: inline-block;
+	vertical-align: top;
+	padding: 0 5px;
+	content: '\f08e'; /* unicode for a random icon from the font awesome library*/
+	font-size: 30px;
+	color: #000;
+	-webkit-font-smoothing: antialiased;
+}
+
+nav.socials li a[href*="facebook.com"]::before  { /*[href*=] is an attribute selector that will look for the attribute "facebook.com" */
+	content: '\f09a'; /* unicode for the facebook icon */
+}
+
+nav.socials li a[href*="twitter.com"]::before  {
+	content: '\f099'; /* unicode for the twitter icon */
+}
+
+nav.socials li a[href*="pinterest.com"]::before  {
+	content: '\f231'; /* unicode for the pinterest icon */
+}
+
+nav.socials li a[href*="youtube.com"]::before  {
+	content: '\f16a'; /* unicode for the youtube icon */
+}
+
+nav.socials li a[href*="instagram.com"]::before  {
+	content: '\f16d'; /* unicode for the instagram icon */
+}
+/* End of: social menu */
+
+/* Beginning of:  main menu */
+nav.site-nav { /* hide the menu */
+	display: none;
+}
+
+@media only screen and (min-width: 768px) { /* show the menu on large screens */
+	nav.site-nav { /* hide the menu */
+		display: block;
+	}
+}
+
+nav.site-nav ul  {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	display: table;
+}
+
+@media only screen and (min-width: 768px) {
+	nav.site-nav ul  li {
+		display: table-cell;
+		width: 1%;
+	}
+}
+
+nav.site-nav ul li a {
+	text-align: center;
+	padding: 20px 0;
+	display: block;
+	font-weight: bold;
+	text-decoration: none;
+	text-transform: uppercase;
+	color: #000;
+	font-family: 'Raleway', sans-serif
+}
+
+nav.site-nav ul li.current_page_item a { /* the class current_page_item is created automatically by WP when one clicks on any page. This is the page that the visitor is at.*/
+	border-bottom: 8px solid #a61206;
+}
+
+/* End of: main menu*/
+
+
+/* Beginning of: Responsive menu button (hamburger menu) */
+@media only screen and (max-width: 767px) { 
+	.mobile-menu a {
+		height: 40px;
+		line-height: 40px;
+		text-decoration: none;
+		background-color: #a61206;
+		width: 100%;
+		display: block;
+		color: #fff;
+		text-align: center;
+		font-size: 20px;
+		text-transform: uppercase;
+		font-family: 'Raleway', sans-serif
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	.mobile-menu a {
+		display: none;
+	}
+}
+
+/* End of: Responsive menu button (hamburger menu */
+
+/* Beginning of: hero image (landing page) */
+.hero {
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	height: 450px;
+	display: table; /*to center the "about us" text */
+	margin: 0 auto;
+	text-align: center;
+	width: 100%;
+	position: relative;
+}
+
+.hero::after { /* ::after will create an element in HTML - creating the overlay with transparency covering the image */
+	content: ''; /* when working with ::after, content needs to be added */
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.5);
+}
+
+.hero .hero-content {
+	display: table-cell; /* used on the children elements when the parent has display: table */
+	vertical-align: middle;
+	color: #fff;
+	z-index: 2;
+	position: relative; /* z-index + position relative to display the text on top of the overlay (and with full opacity) */
+}
+
+@media only screen and (min-width: 768px) {
+	.hero-text {
+		width: 80%;
+		margin: 0 auto;
+	}
+}
+
+@media only screen and (min-width: 992px) {
+	.hero-text {
+		width: 60%;
+	}
+}
+/* End of: hero image (landing page) */
+
+/* Beginning of: text on top of the hero image (landing page) */
+.main-content {
+	padding: 60px;
+	background-color: #fff;
+	position: relative;
+}
+
+@media only screen and (min-width: 768px) {
+	.main-content {
+		margin-top: -90px;
+	}
+}
+
+.content-text p { /* by default the WP function the_content() will retrieve the paragraph tags */
+	font-size: 18px;
+	line-height: 50px;
+}
+/* End of: text on top of the hero image (landing page) */
+
+/* Beginning of: boxes (about us page) */
+
+.box-information { /* css grid technique to style the boxes, only works for FF as per the course */
+	display: grid; 
+}
+
+@media screen and (min-width: 768px) {
+	.box-information { /* css grid technique to style the boxes, only works for the FF inspector as per the course */
+		grid-template-columns: 1fr 1fr 1fr; /* fr = fraction of the width of the container. In this case it will be 33.3% (from a width of 100%). It can also be repeat(3, 1fr),
+		which means repeat 3 times, 33.3%, left to right. */
+	}
+}
+
+.single-box  {
+	display: grid; /* when working with css grid/grid layout, children don't inherit display:grid from the parent so it must be added */
+	grid-template-columns: 2fr 3fr;
+	color: #fff;
+	text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+	.single-box  {
+		grid-template-columns: unset;
+		grid-template-rows: 1fr 1fr; /* 2 fractions, top to bottom */
+	}
+}
+
+.single-box:nth-child(1) {
+	background-color: #f19f30;
+}
+
+.single-box:nth-child(2) {
+	background-color: #127427;
+}
+
+.single-box:nth-child(3) {
+	background-color: #a61206;
+}
+
+@media screen and (min-width: 768px) { /* to have the text on top and picture on the bottom */
+	.single-box:nth-child(2) img  {
+		order: 2;
+	}
+	
+	.single-box:nth-child(2) div  {
+		order: 1;
+	}
+}
+
+.content-box {
+	display: grid;
+	grid-template-rows: 10% 20% 60% 10%;
+	grid-template-areas: "."
+						 "top"
+						 "text"
+						 "."; /* . = space above and below the text and heading; top = headline; text = content */
+}
+
+.content-box * {
+	align-self: center;
+}
+
+@media screen and (min-width: 768px) {
+	.content-box {
+		grid-template-rows: 20% 30% 30% 20%;
+	}
+}
+
+.content-box h3 {
+	grid-area: top;
+	margin: 5px 0;
+	font-size: 20px;
+	text-transform: uppercase;
+	font-weight: 700;
+}
+
+.content-box p {
+	grid-area: text;
+}
+
+/* End of: boxes (about us page) */
+
+/* Beginning of: footer */
+footer {
+	margin-top: 30px;
+	padding: 30px 0;
+	border-top: 1px solid #c1c1c1;
+	text-align: center;
+}
+
+footer nav ul {
+	list-style: none;
+}
+
+footer nav ul li {
+	display: inline;
+}
+
+footer nav ul li:last-child .separator {
+	display: none;
+}
+
+footer nav ul li  a {
+	color: #000;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 16px;
+	text-decoration: none;
+}
+
+footer .location {
+	margin-top: 30px;
+}
+
+footer p {
+	margin: 0 0 5px 0;
+	font-size: 14px;
+}
+
+footer p.copyright {
+	margin-top: 20px;
+}
+
+/* End of: footer */
+
+/* Beginning of:  */
+
+/* End of:  */
