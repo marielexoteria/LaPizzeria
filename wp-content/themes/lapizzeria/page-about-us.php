@@ -1,6 +1,6 @@
 <?php 
 	/* function that gets or includes header.php
-	This file is at the beginning of the course in the same folder as page.php
+	   This file is at the beginning of the course in the same folder as page.php
 	*/
 	get_header();
 ?>
@@ -27,10 +27,10 @@
 <?php endwhile; //ends the while loop ?> 
 
 <!-- This content is not added via the About Us page on WP. We added it by installing a plugin that allows the creation of custom fields to add extra content.
-The plugin is called Advanced Custom Fields (by Elliot Condon). I made a new field called About Us, which I placed on the About us page by adding a rule that 
-"page is equal to About us". 
+     The plugin is called Advanced Custom Fields (by Elliot Condon). I made a new field called About Us, which I placed on the About us page by adding a rule that 
+     "page is equal to About us". 
 
-After the fields are created, then the function the_field() will display their content. -->
+     After the fields are created, then the function the_field() will display their content. -->
 
 <div class="box-information container">
 	<div class="single-box">

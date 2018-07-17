@@ -1,1 +1,0 @@
-Remember to add the wp-config.php file with the db info.

@@ -1,6 +1,6 @@
 <?php 
 	/* function that gets or includes header.php
-	This file is at the beginning of the course in the same folder as page.php
+	   This file is at the beginning of the course in the same folder as page.php
 	*/
 	get_header();
 ?>
@@ -9,7 +9,7 @@
 		  
 <?php 
 	/* function that gets or includes footer.php
-	This file is at the beginning of the course in the same folder as page.php
+	   This file is at the beginning of the course in the same folder as page.php
 	*/
 	get_footer();
 ?>

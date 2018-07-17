@@ -4,20 +4,22 @@
     <meta charset="utf-8">
     <title>La Pizzeria</title>
     <?php 
-		/*Needed to add the stylesheet to the WP theme, together with the code 
-		included in the function lapizzeria_styles() in functions.php  */
+		/* Needed to add the stylesheet to the WP theme, together with the code 
+		   included in the function lapizzeria_styles() in functions.php  
+		*/
 		wp_head();
 	?>
   </head>
-  <body>
+  <body <?php body_class(); //this function will print different classes that can be used to target an element in the CSS. It shows different classes in different pages, according to
+   //what is been used. The printed classes are those used by WP, so it's a good idea to use this function and avoid making more classes. ?>>
 		<header class="site-header">
 			<div class="container">
 				<div class="logo">
 					<!-- The WP function esc_url() removes dangerous or invalid characters from URLs and thus sanitizes data (https://codex.wordpress.org/Function_Reference/esc_url)
-					home_url() gets the path of the URL that makes the home of the site (https://codex.wordpress.org/Function_Reference/home_url) -->
+					     home_url() gets the path of the URL that makes the home of the site (https://codex.wordpress.org/Function_Reference/home_url) -->
 					<a href="<?php echo esc_url(home_url('/')); ?>">
 						<!-- Using the WP function get_template_directory_uri we get the path where the folder 
-						that contains the logo is, and all we need to do is add the sub-folder and file name -->
+						     that contains the logo is, and all we need to do is add the sub-folder and file name -->
 						<img src="<?php echo get_template_directory_uri(); ?>/img/logo.svg" class="logoimage" alt="Logo" style="">
 					</a>
 				</div> <!-- .logo -->
@@ -26,13 +28,13 @@
 				<div class="header-information">
 					<div class="socials">
 						<?php 
-							/*theme_location will tell WP which menu we want to print
-							container = HTML element that will house the menu
-							contailer_class = (CSS) class to apply to the container element specified in the second key of the array
-							container_id = (CSS) id to apply to the container element specified in the second key of the array
-							link_before = opens a span tag (or whatever other HTML tag) for each menu item (sr = screen reader - devices for visually impaired users)
-							link_after = closes the span tag specified in link_before
-							end result: (using Facebook as an example but there are 5 diff social media specified in the menu in WP)
+							/* theme_location will tell WP which menu we want to print
+							   container = HTML element that will house the menu
+							   contailer_class = (CSS) class to apply to the container element specified in the second key of the array
+							   container_id = (CSS) id to apply to the container element specified in the second key of the array
+							   link_before = opens a span tag (or whatever other HTML tag) for each menu item (sr = screen reader - devices for visually impaired users)
+							   link_after = closes the span tag specified in link_before
+							   end result: (using Facebook as an example but there are 5 diff social media specified in the menu in WP)
 								<nav id="socials" class="socials">
 									<ul id="menu_social_menu" class="menu">
 										<li id="menu-item-23" class="menu-item menu-item-type-custom menu-item-obejct-custom menu-item-23>
@@ -71,10 +73,10 @@
 		
 			<div class="navigation container">
 				<?php 
-					/*theme_location will tell WP which menu we want to print
-					  container = HTML element that will house the menu
-					  contailer_class = class to apply to the container element specified in the second key of the array
-					  end result: <nav class="site-nav">
+					/* theme_location will tell WP which menu we want to print
+					   container = HTML element that will house the menu
+					   contailer_class = class to apply to the container element specified in the second key of the array
+					   end result: <nav class="site-nav">
 					*/
 					$args = array(
 						'theme_location'  => 'header-menu', 

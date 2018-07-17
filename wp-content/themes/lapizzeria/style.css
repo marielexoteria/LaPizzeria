@@ -62,8 +62,13 @@ h4 {
 	text-align: center;
 }
 
-img { /* this is needed so that the pictures on the boxes in "about us" can be responsive */
+.primary-text {
+	color: #a61206;
+}
+
+img { /* this is needed so that the pictures on the boxes in "about us" (and in the CSS grid used in the menu page) can be responsive */
     width: 100% ;
+	height: auto; /* needed to keep the aspect ratio of the images on the menu page */
 }
 /* End of: global styles */
 
@@ -216,7 +221,10 @@ nav.site-nav ul li a {
 	font-family: 'Raleway', sans-serif
 }
 
-nav.site-nav ul li.current_page_item a { /* the class current_page_item is created automatically by WP when one clicks on any page. This is the page that the visitor is at.*/
+nav.site-nav ul li.current_page_item a,
+.single-specialties nav.site-nav ul li.menu-item-21 a { /* the class current_page_item is created automatically by WP when one clicks on any page. This is the page that the visitor is at.
+													   menu-item-21 is the menu item in the nav menu, but in this case it will be highlighted when a user clicks on any of the specialty dishes.
+													   adding the class single-specialties makes sure that this highlight only happens in single-specialties.php */
 	border-bottom: 8px solid #a61206;
 }
 
@@ -367,7 +375,7 @@ nav.site-nav ul li.current_page_item a { /* the class current_page_item is creat
 	grid-template-areas: "."
 						 "top"
 						 "text"
-						 "."; /* . = space above and below the text and heading; top = headline; text = content */
+						 "."; /* "." = space above and below the text and heading; top = headline; text = content */
 }
 
 .content-box * {
@@ -436,6 +444,95 @@ footer p.copyright {
 }
 
 /* End of: footer */
+
+/* Beginning of: menu page (CSS grid) */
+@media only screen and (min-width: 768px) {
+	.container-grid {
+		margin-left: -10px;
+		margin-right: -10px;
+	}
+	
+	.container-grid::after { /* applying a clear fix after using float */
+		content: '';
+		display: block;
+		clear: both;
+	}
+	
+	[class*='columns'] { /* will check for any class containing the word "columns" regardless of the numbers that follow it, such as <div class="columns(2-4)"> */
+		padding: 0 10px;
+		float: left;
+	}
+	
+	.columns1-4 {
+		width: 25%;
+	}
+	
+	.columns2-4 {
+		width: 50%;
+	}
+	
+	.columns3-4 {
+		width: 75%;
+	}
+	
+	.columns1-3 {
+		width: 33.3%;
+	}
+	
+	.columns2-3 {
+		width: 66.6%;
+	}
+}
+/* End of: menu page (CSS grid) */
+
+/* Beginning of: menu page (text and images on the specialties) */
+.our-specialties {
+	padding:0 60px;
+}
+.specialty-content {
+	padding: 20px;
+}
+
+.specialty-content a {
+	color: #000;
+	text-decoration: none;
+}
+
+.specialty-content h4 {
+	border-bottom: 1px solid #dfdfdd;
+	padding: 15px 0;
+	font-weight: 700;
+	text-transform: uppercase;
+	margin: 0;
+}
+
+.specialty-content h4 span {
+	float: right;
+	font-size: 30px;
+	color: #f19f30;
+	font-family: "Open Sans", sans-serif;
+}
+
+.specialty-content p {
+	color: #3d3d3d;
+	line-height: 30px;
+}
+
+/* End of: menu page (text and images on the specialties) */
+
+/* Beginning of: single specialty template (single-specialties.php) */
+.single-specialties p.ingredients, .single-specialties p.price {
+	color: #a61206;
+	font-size: 30px;
+	margin: 0;
+}
+
+.single-specialties p.price span {
+	color: #000;
+}
+
+
+/* End of: single specialty template (single-specialties.php) */
 
 /* Beginning of:  */
 
