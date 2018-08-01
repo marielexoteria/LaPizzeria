@@ -3,6 +3,15 @@
 	/* Good idea: to name the functions in the format <theme name>_<name of the function>. This way the functions created won't interfere
 	   with similar names found in plugins or with "reserved names" (names that cannot be used because PHP/WP already use them)
 	*/
+	 
+	//Link or import the inc/reservations_database.php file (this contains the SQL structure)
+	require get_template_directory() . '/inc/reservations_database.php';
+	
+	//Link or import the inc/reservations.php file (this handles the submissions to the table created in reservations_database.php)
+	require get_template_directory() . '/inc/reservations.php';
+	
+	//To include files in the backend of WP (so that they show on the same menu as Pages, Posts, etc.)
+	require get_template_directory() . '/inc/options.php';
 	
 	//To enable having the "add featured image" option on pages
 	function lapizzeria_setup() {
@@ -14,6 +23,9 @@
 		*/
 		add_image_size('boxes', 437, 299, true); 
 		add_image_size('specialties', 768, 515, true);
+		
+		update_option('thumbnail_size_w', 253); //w = width; https://codex.wordpress.org/Function_Reference/update_option
+		update_option('thumbnail_size_h', 164); //h = height
 	}
 
 	//The function will run in the hook "after_setup_theme"
@@ -31,23 +43,29 @@
 		*/
 		wp_register_style('googlefont', 'https://fonts.googleapis.com/css?family=Open+Sans:400,700|Raleway:400,700,900', array(), '1.0.0'); //linking to Google fonts Open Sans and Raleway
 		wp_register_style('normalize', get_template_directory_uri() . '/css/normalize.css', array(), '8.0.0' ); //adding normalize.css, which allows for html components to look and act the same across different browsers (https://necolas.github.io/normalize.css/)
+		wp_register_style('fluidboxcss', get_template_directory_uri() . '/css/fluidbox.min.css', array(), '1.0.0' ); //adding fluidbox.min.css, which is needed in the gallery
 		wp_register_style('fontawesome', get_template_directory_uri() . '/css/font-awesome.css', array('normalize'), '4.7.0'); //font awesome (for the icons)
 		wp_register_style('style', get_template_directory_uri() . '/style.css', array('normalize'), '1.0'); //main stylesheet
 		
 		
 		//Enqueues the style. Must use after using wp_register_style()
 		wp_enqueue_style('normalize');
+		wp_enqueue_style('fluidboxcss');
 		wp_enqueue_style('fontawesome');
 		wp_enqueue_style('googlefont');
-		wp_enqueue_style('style');
+		wp_enqueue_style('style'); //file for the custom CSS code
 		
 		
 		//Adding the jQuery library files
 		/* jQuery is installed by default when installing WP. The library is in wp-includes/js/jquery
 		   https://developer.wordpress.org/reference/functions/wp_enqueue_script/#default-scripts-included-and-registered-by-wordpress 
 		*/
-		wp_register_script('script', get_template_directory_uri() . '/js/scripts.js', array('jquery'), '1.0.0', true); //true = load the js in the before closing the HTML body tag (footer.php)
+		wp_register_script('fluidboxjs', get_template_directory_uri() . '/js/jquery.fluidbox.min.js', array('jquery'), '1.0.0', true); //true = load the js in the before closing the HTML body tag (footer.php)
+		wp_register_script('script', get_template_directory_uri() . '/js/scripts.js', array('jquery'), '1.0.0', true);
+		
+		//Enqueues the Javascript files
 		wp_enqueue_script('jquery');
+		wp_enqueue_script('fluidboxjs');
 		wp_enqueue_script('script'); //file for custom scripts
 		
 	}
@@ -122,5 +140,20 @@
 	}
 
 	add_action( 'init', 'lapizzeria_specialties' );
+	
+	//Adding the widget zone. It will create a space to drag existing widgets to
+	function lapizzeria_widgets() {
+		register_sidebar( array( //to add the widgets, even tho the function is called sidebar
+			'name' => 'Blog sidebar', //the name that will be printed in the WP console/backend
+			'id' => 'blog_sidebar',
+			'before_widget'=> '<div class="widget">', //the info that will be printed before the widget
+			'after_widget' => '</div>', //the info that will be printed after the widget
+			'before_title' => '<h3>', //the tag that will print the title
+			'after_title' => '</h3>')
+		); 
+		
+	}
+	
+	add_action('widgets_init', 'lapizzeria_widgets');
 
 ?>

@@ -1,6 +1,6 @@
 /*
 Theme name: La Pizzeria
-Theme URI: 
+Theme URI:
 Author: Mariel Backman
 Author URI: www.behance.net/marielbackman
 Description: Theme for restaurants. Created on the Udemy course "Profesional Wordpress Theme Development" by Juan Pablo de la Torre
@@ -70,6 +70,29 @@ img { /* this is needed so that the pictures on the boxes in "about us" (and in 
     width: 100% ;
 	height: auto; /* needed to keep the aspect ratio of the images on the menu page */
 }
+
+.button {
+	background-color: #a61206;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px;
+	width: auto;
+	border-radius: 8px;
+	color: #fff;
+	padding: 15px 80px;
+	margin-top: 20px;
+	display: inline-block;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.primary {
+	background-color: #a61206;
+	transition: background-color 0.5s ease;
+}
+
+.primary:hover {
+	background-color: #7b0d04;
+}
 /* End of: global styles */
 
 /* Beginning of: header */
@@ -102,7 +125,7 @@ img.logoimage {
 	header.site-header .container {
 		position: relative;
 	}
-	
+
 	header.site-header .header-information {
 		position: absolute;
 		top: 0;
@@ -110,7 +133,7 @@ img.logoimage {
 	}
 }
 
-.sr-text {
+.sr-text, .screen-reader-text {
 	display: none;
 }
 
@@ -222,17 +245,18 @@ nav.site-nav ul li a {
 }
 
 nav.site-nav ul li.current_page_item a,
-.single-specialties nav.site-nav ul li.menu-item-21 a { /* the class current_page_item is created automatically by WP when one clicks on any page. This is the page that the visitor is at.
-													   menu-item-21 is the menu item in the nav menu, but in this case it will be highlighted when a user clicks on any of the specialty dishes.
-													   adding the class single-specialties makes sure that this highlight only happens in single-specialties.php */
+.single-specialties nav.site-nav ul li.menu-item-21 a {
+	/* the class current_page_item is created automatically by WP when one clicks on any page. This is the page that the visitor is at.
+  menu-item-21 is the menu item in the nav menu, but in this case it will be highlighted when a user clicks on any of the specialty dishes.
+	adding the class single-specialties makes sure that this highlight only happens in single-specialties.php.
+	tuve que quitar la última línea porque al hacer click en un specialty, se hacía highlight en Menu y Blog */
 	border-bottom: 8px solid #a61206;
 }
-
 /* End of: main menu*/
 
 
 /* Beginning of: Responsive menu button (hamburger menu) */
-@media only screen and (max-width: 767px) { 
+@media only screen and (max-width: 767px) {
 	.mobile-menu a {
 		height: 40px;
 		line-height: 40px;
@@ -323,7 +347,7 @@ nav.site-nav ul li.current_page_item a,
 /* Beginning of: boxes (about us page) */
 
 .box-information { /* css grid technique to style the boxes, only works for FF as per the course */
-	display: grid; 
+	display: grid;
 }
 
 @media screen and (min-width: 768px) {
@@ -363,7 +387,7 @@ nav.site-nav ul li.current_page_item a,
 	.single-box:nth-child(2) img  {
 		order: 2;
 	}
-	
+
 	.single-box:nth-child(2) div  {
 		order: 1;
 	}
@@ -451,34 +475,34 @@ footer p.copyright {
 		margin-left: -10px;
 		margin-right: -10px;
 	}
-	
+
 	.container-grid::after { /* applying a clear fix after using float */
 		content: '';
 		display: block;
 		clear: both;
 	}
-	
+
 	[class*='columns'] { /* will check for any class containing the word "columns" regardless of the numbers that follow it, such as <div class="columns(2-4)"> */
 		padding: 0 10px;
 		float: left;
 	}
-	
+
 	.columns1-4 {
 		width: 25%;
 	}
-	
+
 	.columns2-4 {
 		width: 50%;
 	}
-	
+
 	.columns3-4 {
 		width: 75%;
 	}
-	
+
 	.columns1-3 {
 		width: 33.3%;
 	}
-	
+
 	.columns2-3 {
 		width: 66.6%;
 	}
@@ -517,7 +541,6 @@ footer p.copyright {
 	color: #3d3d3d;
 	line-height: 30px;
 }
-
 /* End of: menu page (text and images on the specialties) */
 
 /* Beginning of: single specialty template (single-specialties.php) */
@@ -530,9 +553,341 @@ footer p.copyright {
 .single-specialties p.price span {
 	color: #000;
 }
-
-
 /* End of: single specialty template (single-specialties.php) */
+
+/* Beginning of: blog */
+.blog nav.site-nav ul li.current_page_item a,
+.blog nav.site-nav ul li.menu-item-20 a,
+nav.site-nav ul li.current_page_parent a {
+	/* tuve que agregar esto porque quité la útlima línea en Menu (specialties) porque cuando se hace click en un specialty, se hace highlight en Menu y Blog */
+	border-bottom: 8px solid #a61206;
+}
+
+article.entry {
+	margin-top: 30px;
+}
+
+header.entry-header {
+	margin-top: 20px;
+}
+
+header.entry-header .date, .entry-information .date {
+	background-color: #f19f30;
+	float: left;
+	width: 70px;
+	height: 70px;
+	text-align: center;
+	padding-top: 5px;
+	margin-right: 20px;
+}
+
+header.entry-header .date time, .entry-information .date time {
+	font-size: 30px;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 700;
+}
+
+header.entry-header .date time span, .entry-information .date time span {
+	font-size: 16px;
+	display: block;
+	text-transform: uppercase;
+}
+
+header.entry-header .entry-title {
+	float: right;
+	width: calc(100% - 90px);
+}
+
+header.entry-header h2 {
+	margin: 0;
+	font-size: 24px;
+	text-transform: uppercase;
+	font-weight: 700;
+}
+
+header.entry-header p.author, .entry-information p.author {
+	text-transform: uppercase;
+	color: #000;
+	margin: 0;
+	font-family: 'Raleway', sans-serif;
+}
+
+.entry-information {
+	padding-top: 30px;
+}
+
+.entry-information p.author {
+	display: inline;
+	float: left;
+	margin-top: 38px;
+}
+
+p.author i {
+	font-size: 30px;
+	color: #f19f30;
+}
+
+div.entry-content p {
+	margin-bottom: 0;
+	line-height: 24px;
+}
+/* End of: blog */
+
+/* Beginning of: sidebar */
+aside.sidebar {
+	margin-top: 3px;
+}
+
+form.searchform {
+	position: relative;
+}
+
+form.searchform  #searchsubmit {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 42px;
+	height: 42px;
+	background-color: #a61206;
+	text-indent: -9999px;
+	background-image: url('img/search.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+	border: none;
+	cursor: pointer;
+}
+
+form.searchform #s {
+	width: 100%;
+	padding: 11px;
+}
+
+.sidebar .widget {
+	margin-bottom: 20px;
+}
+
+.sidebar .widget  h3 {
+	font-weight: 700;
+	font-size: 24px;
+	text-transform: uppercase;
+}
+
+.sidebar .widget  ul {
+	list-style: none;
+}
+
+.sidebar .widget  ul li {
+	margin-bottom: 20px;
+}
+
+.sidebar .widget  ul li a {
+	color: #000;
+	text-decoration: none;
+}
+
+.sidebar .widget  ul li a:hover {
+	color: #f19f30;
+}
+/* End of: sidebar */
+
+/* Beginning of: comment form */
+.comment-respond h3 {
+	font-weight: 700;
+	text-align: center;
+}
+
+@media only screen and (min-width: 768px) {
+	div.comments {
+		width: 80%;
+	}
+}
+
+@media only screen and (min-width: 992px) {
+	div.comments {
+		width: 60%;
+	}
+}
+
+.comment-respond  form label {
+	width: 200px;
+	display: inline-block;
+	text-align: right;
+	padding-right: 20px;
+	font-weight: bold;
+}
+
+.comment-respond  form input, .comment-respond  form textarea {
+	padding: 10px;
+	width: calc(100% - 220px);
+}
+
+.comment-respond  form input[type="submit"] {
+	margin: 0 auto;
+	display: inline-block;
+	border: none;
+	width: auto;
+	background-color: #a61206;
+	font-size: 20px;
+	color: #fff;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+.comment-notes {
+	text-align: center;
+}
+
+p.form-submit {
+	text-align: center;
+}
+
+.comment-respond  form textarea {
+	font-size: 14px;
+}
+
+/*form.comment-form p.comment-form-cookies-consent label,
+form.comment-form input#wp-comment-cookies-consent { /* NEW CLASS ADDED IN WP DUE TO GPDR AND IT'S NOT ON THE COURSE. FIND A WAY TO STYLE THIS BETTER. PARA QUE ESTA CLASE SE VEA HAY QUE ABRIR LA PÁGINA EN MODO INCÓGNITO O SIN
+LOGUEARSE. */
+	/*display: none; /* POR AHORA PERO TENGO QUE RESOLVER ESO MÁS TARDE */
+/*}
+*/
+
+form.comment-form p.comment-form-cookies-consent label {
+	width: 200px;
+	text-align: right;
+}
+
+form.comment-form input#wp-comment-cookies-consent {
+	background-color: green;
+	display: inline;
+	width: 500px;
+	text-align: left;
+}
+
+p.logged-in-as a {
+	color: #a61206;
+	text-decoration: none; /* lo agregué yo, no está en el curso */
+	text-align: center;
+	display: block;
+}
+/* End of: comment form */
+
+/* Beginning of: comment list */
+img.avatar.avatar-32.photo { /* tuve que agregar esto porque en el global styling se deciio que img = width of 100% por otros issues con otras fotos */
+	width: auto;
+	height: auto;
+}
+
+ol.comments_in_post {
+	list-style: none;
+	font-size: 14px; /* lo moví de li.comment cite y lo puse aquí mejor */
+}
+
+ol.comments_in_post li.comment {
+	background-color: #e1e1e1;
+	padding: 20px;
+	margin-bottom: 20px;
+}
+
+ol.comments_in_post li.comment cite {
+	color: #a61206;
+	font-weight: bold;
+}
+
+li.comment .comment-author {
+	margin-bottom: 10px;
+}
+
+li.comment a {
+	color: #a61206;
+	text-decoration: none;
+}
+
+li.comment ul.children {
+	list-style: none;
+}
+
+li.comment ul.children li {
+	background-color: #fff;
+	margin-top: 20px;
+}
+/* End of: comment list */
+
+/* Beginning of: gallery */
+#gallery-1 .gallery-item {
+	width: 50% !important;
+	margin: 0;
+	padding: 0 5px !important;
+}
+
+@media only screen and (min-width: 768px) {
+	#gallery-1 .gallery-item {
+		width: 25% !important;
+	}
+}
+
+#gallery-1 img {
+	border: none !important;
+}
+/* End of: gallery */
+
+/* Beginning of: reservation (contact us) */
+.reservation {
+	background-image: url('img/bg_contact.jpg');
+	background-repeat: no-repeat;
+	background-position: top left;
+}
+
+@media only screen and (min-width: 768px) {
+	.reservation-info {
+		margin-left:50%;
+	}
+}
+
+form.reservation-form h2 {
+	font-size: 20px;
+	font-weight: 700;
+}
+
+form.reservation-form .field {
+	margin-bottom: 20px;
+	width: 100%;
+}
+
+form.reservation-form .field input,
+form.reservation-form .field textarea {
+	width: 100%;
+	border: 3px #000 solid;
+	padding: 15px 10px;
+	font-size: 16px;
+}
+
+form.reservation-form .field textarea {
+	height: 200px;
+}
+
+form.reservation-form  ::-webkit-input-placeholder {
+	color: #000 !important;
+}
+
+form.reservation-form  :moz-placeholder { /* targetting old versions of FF - for each browser there needs to be a separate copy (unlike putting them all separated with commas) - NO FUNCIONA */
+	color: #000000 !important;
+	opacity: 1;
+}
+
+form.reservation-form  ::moz-placeholder { /* targetting new versions of FF - NO FUNCIONA */
+	color: #000000 !important;
+	opacity: 1;
+}
+
+form.reservation-form  ::-ms-input-placeholder {
+	color: #000 !important;
+}
+
+form.reservation-form input[type="submit"] {
+	border: none;
+}
+/* End of: reservation (contact us) */
 
 /* Beginning of:  */
 
