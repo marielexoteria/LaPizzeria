@@ -23,6 +23,7 @@
 		*/
 		add_image_size('boxes', 437, 299, true); 
 		add_image_size('specialties', 768, 515, true);
+		add_image_size('specialty-portrait', 435, 530, true);
 		
 		update_option('thumbnail_size_w', 253); //w = width; https://codex.wordpress.org/Function_Reference/update_option
 		update_option('thumbnail_size_h', 164); //h = height
@@ -155,5 +156,18 @@
 	}
 	
 	add_action('widgets_init', 'lapizzeria_widgets');
+	
+	/* Workaround for the issue that when one clicks on any of the specialties, the Blog in the nav menu gets also highlighted, and if I remove the line 
+	   "nav.site-nav ul li.current_page_parent a" from the CSS then the Blog (nav menu) doesn't get highlighted if one clicks on any blog entry. From
+	   https://www.udemy.com/photoshop-psd-to-wordpress-theme-development-from-scratch/learn/v4/questions/4150414
+	*/
+	function remove_page_parent_post_tye($classes, $item) {
+		if ((is_post_type_archive('specialties') || is_singular('specialties'))  && $item->title == 'Blog') {
+			$classes = array_diff( $classes, array( 'current_page_parent' ) );
+		}
+		return $classes;
+    }
+	
+    add_filter( 'nav_menu_css_class', 'remove_page_parent_post_tye', 10, 2 );
 
 ?>

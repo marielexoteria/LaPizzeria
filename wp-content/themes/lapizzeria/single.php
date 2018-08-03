@@ -1,4 +1,4 @@
-<?php
+<?php 
 	/* function that gets or includes header.php
 	   This file is at the beginning of the course in the same folder as page.php
 	*/
@@ -17,13 +17,13 @@
 			</div>
 		</div>
 	</div>
-
-	<div class="main-content container blog">
+	
+	<div class="main-content container">
 		<main class="content-text">
 			<div class="entry-information clear">
 				<div class="date">
 					<time>
-						<?php echo the_time('d'); ?>
+						<?php echo the_time('d'); ?> 
 						<span><?php echo the_time('M') ?></span>
 					</time>
 				</div> <!-- ./date -->
@@ -32,20 +32,20 @@
 					<?php the_author(); ?>
 				</p>
 			</div> <!-- ./entry-information -->
-			<?php the_content(); //prints the content of the page ?>
+			<?php the_content(); //prints the content of the page ?> 
 		</main>
-
+		
 		<div class="container comments">
 			<?php comment_form(); //prints the comment form ?>
 		</div>
-
+		
 		<div class="container comment-list">
 			<ol class="comments_in_post"> <!-- en el curso: commentlist -->
 				<?php
 					$comments = get_comments(array( //WP function that retrieves a list of comments - https://codex.wordpress.org/Function_Reference/get_comments
 						'post_id' => $post->ID,
 						'status' => 'approve'
-					));
+					)); 
 					wp_list_comments(array( //lists the comments indicating how many per page and showing the most recent on top (reverse_top_level = false) - https://codex.wordpress.org/Function_Reference/wp_list_comments
 						'per_page' => 10,
 						'reverse_top_level' => false
@@ -55,10 +55,10 @@
 		</div>
 	</div>
 
-<?php endwhile; //ends the while loop ?>
+<?php endwhile; //ends the while loop ?> 
 
 
-<?php
+<?php 
 	/* function that gets or includes footer.php
 	   This file is at the beginning of the course in the same folder as page.php
 	*/
