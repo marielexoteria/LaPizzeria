@@ -21,15 +21,15 @@
 		<div class="hero-content">
 			<div class="hero-text">
 				<h2><?php the_title(); //prints the title of the page ?></h2>
-			</div>
-		</div>
-	</div>
+			</div> <!-- ./hero-text -->
+		</div> <!-- ./hero-content -->
+	</div> <!-- ./hero -->
 	
 	<div class="main-content container">
 		<main class="text-center content-text">
 			<?php the_content(); //prints the content of the page ?> 
 		</main>
-	</div>
+	</div> <!-- ./main-content container -->
 
 <?php endwhile; //ends the while loop ?> 
 
@@ -57,13 +57,13 @@
 						<h4><?php the_title(); ?> <span>$<?php the_field('price'); //the custom field created and that has the price of the dish ?></span></h4>
 						<?php the_content(); ?>
 					</a>
-				</div>
+				</div> <!-- ./columns2-4 specialty-content -->
 		
 		<?php
 			endwhile; 
 			wp_reset_postdata(); //this function will finish the WP_Query() and will tell Wordpress to continue running in the standard way
 		?>
-	</div>
+	</div> <!-- ./container-grid -->
 	
 	<h3 class="primary-text">Others</h3>
 	<div class="container-grid">
@@ -88,15 +88,15 @@
 						<h4><?php the_title(); ?> <span>$<?php the_field('price'); //the custom field created and that has the price of the dish ?></span></h4>
 						<?php the_content(); ?>
 					</a>
-				</div>
+				</div> <!-- ./columns2-4 specialty-content -->
 		
 		<?php
 			endwhile; 
 			wp_reset_postdata(); //this function will finish the WP_Query() and will tell Wordpress to continue running in the standard way
 		?>
-	</div>	
+	</div> <!-- ./container-grid -->	
 	
-</div>
+</div> <!-- ./our-specialties container -->
 
 
 <?php 

@@ -3,6 +3,19 @@
   <head>
     <meta charset="utf-8">
     <title>La Pizzeria</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!-- code to make the website iOS compatible -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-title" content="La Pizzeria Restaurant">
+	<link rel="apple-touch-icon" href="<?php echo get_template_directory_uri()?>/apple-touch-icon.jpg">
+	
+	<!-- code to make the website Android compatible -->
+	<meta name="theme-color" content="#a61206">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="application-name" content="La Pizzeria Restaurant">
+	<link rel="icon" type="image/png" href="<?php echo get_template_directory_uri()?>/icon.png" sizes="192x192">
+	
     <?php 
 		/* Needed to add the stylesheet to the WP theme, together with the code 
 		   included in the function lapizzeria_styles() in functions.php  
@@ -22,7 +35,7 @@
 						     that contains the logo is, and all we need to do is add the sub-folder and file name -->
 						<img src="<?php echo get_template_directory_uri(); ?>/img/logo.svg" class="logoimage" alt="Logo" style="">
 					</a>
-				</div> <!-- .logo -->
+				</div> <!-- ./logo -->
 					
 				<!-- social media icons + contact info -->
 				<div class="header-information">
@@ -56,20 +69,20 @@
 							//displays a navigation menu (https://developer.wordpress.org/reference/functions/wp_nav_menu/)
 							wp_nav_menu($args);
 						?>
-					</div> <!-- .socials -->
+					</div> <!-- ./socials -->
 						
 					<div class="address">
-						<p>8179 Bay Avenue Mountain View, CA 94043</p>
-						<p>Phone Number: +1-92-456-7890</p>
-					</div> <!-- .address -->
-				</div> <!-- .header-information -->
-			</div> <!-- .container -->
+						<p><?php echo esc_html(get_option('lapizzeria_address'));?></p>
+						<p>Phone Number: <?php echo esc_html(get_option('lapizzeria_phone_number'));?></p>
+					</div> <!-- ./address -->
+				</div> <!-- ./header-information -->
+			</div> <!-- ./container -->
 		</header>
 		
 		<div class="main-menu">
 			<div class="mobile-menu">
 				<a href="#" class="mobile"><i class="fa fa-bars"></i> Menu</a>
-			</div> <!-- .m -->
+			</div> <!-- ./mobile-menu -->
 		
 			<div class="navigation container">
 				<?php 
@@ -87,5 +100,5 @@
 					//displays a navigation menu (https://developer.wordpress.org/reference/functions/wp_nav_menu/)
 					wp_nav_menu($args);
 				?>
-			</div> <!-- .navigation -->
-		</div> <!-- .main-menu -->
+			</div> <!-- ./navigation container -->
+		</div> <!-- ./main-menu -->

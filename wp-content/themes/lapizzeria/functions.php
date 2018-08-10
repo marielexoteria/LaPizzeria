@@ -46,6 +46,7 @@
 		wp_register_style('normalize', get_template_directory_uri() . '/css/normalize.css', array(), '8.0.0' ); //adding normalize.css, which allows for html components to look and act the same across different browsers (https://necolas.github.io/normalize.css/)
 		wp_register_style('fluidboxcss', get_template_directory_uri() . '/css/fluidbox.min.css', array(), '1.0.0' ); //adding fluidbox.min.css, which is needed in the gallery
 		wp_register_style('fontawesome', get_template_directory_uri() . '/css/font-awesome.css', array('normalize'), '4.7.0'); //font awesome (for the icons)
+		wp_register_style('datetime-local', get_template_directory_uri() . '/css/datetime-local-polyfill.css', array('normalize'), '1.0.0');  //polyfill because FF doesn't support datetime-local and there's no calendar picker on the reservation form
 		wp_register_style('style', get_template_directory_uri() . '/style.css', array('normalize'), '1.0'); //main stylesheet
 		
 		
@@ -54,6 +55,7 @@
 		wp_enqueue_style('fluidboxcss');
 		wp_enqueue_style('fontawesome');
 		wp_enqueue_style('googlefont');
+		wp_enqueue_style('datetime-local');
 		wp_enqueue_style('style'); //file for the custom CSS code
 		
 		
@@ -62,12 +64,44 @@
 		   https://developer.wordpress.org/reference/functions/wp_enqueue_script/#default-scripts-included-and-registered-by-wordpress 
 		*/
 		wp_register_script('fluidboxjs', get_template_directory_uri() . '/js/jquery.fluidbox.min.js', array('jquery'), '1.0.0', true); //true = load the js in the before closing the HTML body tag (footer.php)
+		wp_register_script('debounce', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js', array(), '', true); //needed for fluidbox to work
+		wp_register_script('datetime-local-polyfill', get_template_directory_uri() . '/js/datetime-local-polyfill.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'modernizr'), '', true); //adding the js needed for the polyfill to work (so that there's a calendar picker on the reservations form on FF)
+		wp_register_script('modernizr', 'https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js', array('jquery'), '', true); //needed for the polyfill to work
 		wp_register_script('script', get_template_directory_uri() . '/js/scripts.js', array('jquery'), '1.0.0', true);
+		
+		//Adding the script needed to embed the Google Maps to the front page
+		$apiKey = esc_html(get_option('lapizzeria_gmap_api_key'));
+		wp_register_script('googlemaps', 'https://maps.googleapis.com/maps/api/js?key='.$apiKey.'&callback=initMap', array(), '2.8.3', true); //needed to load the Google Maps API 
+		/* needed to be able to load the map with no probs: enable both the Maps Javascript API and the Geocoding API, solution from 
+	       https://stackoverflow.com/questions/38199452/google-maps-api-deletedapiprojectmaperror
+		   using the API Key as specified above from La Pizzeria WP Theme ENG
+		*/
+		
 		
 		//Enqueues the Javascript files
 		wp_enqueue_script('jquery');
+		wp_enqueue_script('jquery-ui-core'); //jQuery UI comes by default in WP and is needed for the polyfill to work (so that there's a calendar picker on the reservations form on FF)
+		wp_enqueue_script('jquery-ui-datepicker'); //jQuery UI comes by default in WP and is needed for the polyfill to work (so that there's a calendar picker on the reservations form on FF)
+		wp_enqueue_script('datetime-local-polyfill'); 
+		wp_enqueue_script('debounce'); //needed for fluidbox to work
 		wp_enqueue_script('fluidboxjs');
+		wp_enqueue_script('modernizr');
 		wp_enqueue_script('script'); //file for custom scripts
+		wp_enqueue_script('googlemaps'); /* needs to be last because otherwise it gives an error of initMap (function used in scripts.js) not being a function. Solution from https://www.udemy.com/photoshop-psd-to-wordpress-theme-development-from-scratch/learn/v4/questions/2306654 */
+		
+		wp_localize_script(
+			'script',
+			'options',
+			array(
+				'latitude' => esc_html(get_option('lapizzeria_gmap_latitude')),
+				'longitude' => esc_html(get_option('lapizzeria_gmap_longitude')),
+				'zoom' => esc_html(get_option('lapizzeria_gmap_zoom_level'))
+			)
+		);
+		/* script = the name of the JS file to pass info to
+		   options = the object that will take the info to pass to the array from inc > options.php
+		   latitu
+		*/
 		
 	}
 	
@@ -168,6 +202,22 @@
 		return $classes;
     }
 	
-    add_filter( 'nav_menu_css_class', 'remove_page_parent_post_tye', 10, 2 );
+    add_filter( 'nav_menu_css_class', 'remove_page_parent_post_tye', 10, 2 ); //this function needs the space before the 'nav_menu_css_class' or else it will give an error
+	
+	function add_async_defer($tag, $handle) { //because the Google Maps library requires it to load the map. Made in lecture 112
+		if ('googlemaps' !== $handle) {
+			return $tag;
+		}
+		return str_replace(' src', ' async="async" defer="defer" src', $tag);
+	}
+	
+	add_filter( 'script_loader_tag', 'add_async_defer', 10, 2); //this function needs the space before the 'script_loader_tag' or else it will give an error
+	/*
+		script_loader_tag = the hook that will connect the function
+		add_async_defer = the function to connect
+		10 = the priority
+		2 = the number of arguments
+	*/
+	
 
 ?>

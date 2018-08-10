@@ -17,9 +17,9 @@
 	<div class="hero-content">
 		<div class="hero-text">
 			<h2><?php echo get_the_title($blog_page); //retrieves the post title of the ID saved in $blog_page - https://developer.wordpress.org/reference/functions/get_the_title/ ?></h2>
-		</div>
-	</div>
-</div>
+		</div> <!-- ./hero-text -->
+	</div> <!-- ./hero-content -->
+</div> <!-- ./hero -->
 	
 <div class="main-content container">
 	<div class="container-grid">
@@ -59,8 +59,8 @@
 		
 		<?php get_sidebar(); //to display sidebar.php where widgets usually are placed ?> 
 		
-	</div>
-</div>
+	</div> <!-- ./container-grid -->
+</div> <!-- ./main-content container -->
 
 
 

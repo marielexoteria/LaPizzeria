@@ -13,36 +13,17 @@
 		<div class="hero-content">
 			<div class="hero-text">
 				<h2><?php the_title(); //prints the title of the page ?></h2>
-			</div>
-		</div>
-	</div>
+			</div> <!-- ./hero-text -->
+		</div> <!-- ./hero-content -->
+	</div> <!-- ./hero -->
 	
 	<div class="main-content container reservation">
 		<main class="content-text clear">
-			<div class="reservation-info">
-				<form class="reservation-form" method="post">
-					<h2>Make a reservation</h2>
-					<div class="field">
-						<input type="text" name="name" placeholder="Name" required>
-					</div><!-- ./field name -->
-					<div class="field">
-						<input type="datetime-local" name="date" placeholder="Date" required>
-					</div><!-- ./field date -->
-					<div class="field">
-						<input type="email" name="email" placeholder="E-mail" required>
-					</div><!-- ./field e-mail -->
-					<div class="field">
-						<input type="tel" name="phone" placeholder="Phone number" required>
-					</div><!-- ./field phone nr -->
-					<div class="field">
-						<textarea name="message" placeholder="Message" required></textarea>
-					</div><!-- ./textarea -->
-					<input type="submit" name="reservation" value="Send" class="button">
-					<input type="hidden" name="hidden" value="1">
-				</form>
-			</div>
+			<?php get_template_part('templates/reservation', 'form');
+			/* WP function to get the content of a custom file, in this case the reservation form, because it will be used in the front page and the contact us page;
+			   the name of the file is split as shown above, usually by the dash (the file is called reservation-form.php) */?>
 		</main>
-	</div>
+	</div> <!-- ./main-content container reservation -->
 
 <?php endwhile; //ends the while loop ?> 
 

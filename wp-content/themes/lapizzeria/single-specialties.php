@@ -14,9 +14,9 @@
 		<div class="hero-content">
 			<div class="hero-text">
 				<h2><?php the_title(); //prints the title of the page ?></h2>
-			</div>
-		</div>
-	</div>
+			</div> <!-- ./hero-text -->
+		</div> <!-- ./hero-contentr -->
+	</div> <!-- ./hero -->
 	
 	<div class="main-content container">
 		<main class="text-center content-text">
@@ -24,7 +24,7 @@
 			<?php the_content(); //prints the content of the page ?> 
 			<p class="price">Price: <span>$<?php the_field('price'); ?></span></p>
 		</main>
-	</div>
+	</div> <!-- ./main-content container -->
 
 <?php endwhile; //ends the while loop ?> 
 

@@ -25,10 +25,10 @@
 					the_content(); 
 					$url = get_page_by_title('About Us');
 				?>
-				<a class="button secondary"href="<?php echo get_permalink($url->ID); ?>">More info</a>
-			</div>
-		</div>
-	</div>
+				<a class="button secondary" href="<?php echo get_permalink($url->ID); ?>">More info</a>
+			</div> <!-- ./hero-text -->
+		</div> <!-- ./hero-content -->
+	</div> <!-- ./hero -->
 	<?php endwhile; //ends the while loop ?> 
 	
 	<div class="main-content container">
@@ -60,19 +60,64 @@
 							?>
 							<p class="price">$<?php the_field('price'); ?></p>
 							<a class="button primary" href="<?php the_permalink(); ?>">Read more</a>
-						</div>
-					</div>
-				</div>
+						</div> <!-- ./information -->
+					</div> <!-- ./specialty-content -->
+				</div> <!-- ./specialty columns1-3 -->
 			<?php
 				
 				endwhile;
 				wp_reset_postdata();
 			?>
 		</main>
-	</div>
+	</div> <!-- ./main-content container -->
 
-
-
+	<section class="fresh-ingredients">
+		<div class="container">
+			<div class="container-grid">
+				<?php while (have_posts()) : the_post(); ?>
+				<div class="columns2-4">
+					<h3><?php the_field('ingredients_title'); ?></h3>
+					<?php 
+						the_field('ingredients_text'); 
+						$url = get_page_by_title('About Us');
+					?>
+					<a class="button primary" href="<?php echo get_permalink($url->ID); ?>">Read more</a>
+				</div> <!-- ./columns2-4 left -->
+				
+				<div class="columns2-4 image">
+					<img src="<?php the_field('ingredients_image'); ?>" alt="fresh ingredients">
+				</div> <!-- ./columns2-4 right -->
+				<?php
+					endwhile;
+				?>
+			</div> <!-- ./container-grid -->
+		</div> <!-- ./container -->
+	</section>
+	
+	<section class="container clear"> <!-- usando la clase clear porque las fotos de la galería tienen un float left y para que la info del footer no se muestre al lado de la galería -->
+		<h2 class="primary-text text-center">Gallery</h2>
+		<?php
+			//Querying the content in the page "Gallery" to display it here
+			$url = get_page_by_title('Gallery'); //returns the ID of the page given
+			echo get_post_gallery($url->ID); //WP function that will retrieve a gallery
+		?>
+	</section>
+	
+	<section class="container location-reservation clear">
+		<div class="container-grid">
+			<div class="columns2-4">
+				<div id="map">
+					Map goes here
+				</div> <!-- #/map -->
+			</div> <!-- ./columns2-4 map -->
+			
+			<div class="columns2-4">
+				<?php get_template_part('templates/reservation', 'form');
+				/* WP function to get the content of a custom file, in this case the reservation form, because it will be used in the front page and the contact us page;
+			       the name of the file is split as shown above, usually by the dash (the file is called reservation-form.php) */?>
+			</div> <!-- ./columns2-4 reservations form-->
+		</div> <!-- ./container-grid -->
+	</section>
 
 <?php 
 	/* function that gets or includes footer.php

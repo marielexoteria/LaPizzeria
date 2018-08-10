@@ -1,3 +1,21 @@
+var map;
+function initMap() {
+	var latLng = {
+		lat: parseFloat(options.latitude),
+		lng: parseFloat(options.longitude)
+	}; //parseFloat para convertir los strings que se introdujeron en el backend de WP a números con puntos decimales
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: latLng,
+        zoom: parseInt(options.zoom)
+    }); //parseInt para convertir el string que se introdujeron en el backend de WP a un número entero
+	
+	var marker = new google.maps.Marker({
+		position: latLng,
+		map: map,
+		title: 'La Pizzeria'
+	}); //map: map = map as in Google Map and map as in the variable declared above
+}
+
 $ = jQuery.noConflict(); //so that there's no "TypeError: $ is not a function" error on the console. This happens with $(document).ready().
 
 $(document).ready(function() {
@@ -11,6 +29,7 @@ $(document).ready(function() {
 	//show the mobile menu
 	var breakpoint = 768;
 	$(window).resize(function() {
+		//boxAdjustment();
 		if ($(document).width() >= breakpoint) {
 			$('nav.site-nav').show(); //shows the desktop version of the main menu when the screen size is 768px or more
 		} else {
@@ -29,6 +48,24 @@ $(document).ready(function() {
 		jQuery('[data-fluidbox]').fluidbox();
 	}
 	
+	//adapting the map to the height of the container
+	var map = $('#map');
+	if (map.length > 0) {
+		if ($(document).width() >= breakpoint) { //breakpoint as defined above (show the mobile menu)
+			displayMap(0);
+		} else {
+			displayMap(300);
+		}
+	}
+	$(window).resize(function() { //needed to track whether the window is resized or not (otherwise it won't display the map at 300px in small screens)
+		if ($(document).width() >= breakpoint) {
+			displayMap(0);
+		} else {
+			displayMap(300);
+		}
+	});
+	
+	
 });
 
 //adapts the height of the images to the div elements - when did we write this function???
@@ -42,4 +79,14 @@ $(document).ready(function() {
 		});
 	}
 }*/
+
+function displayMap(value) {
+	if (value == 0) {
+		var locationSection = $('.location-reservation');
+		var locationHeight = locationSection.height();
+		$('#map').css({'height': locationHeight});
+	} else {
+		$('#map').css({'height': value});
+	}
+}
 

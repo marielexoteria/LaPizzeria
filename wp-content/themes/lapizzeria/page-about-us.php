@@ -14,15 +14,15 @@
 		<div class="hero-content">
 			<div class="hero-text">
 				<h2><?php the_title(); //prints the title of the page ?></h2>
-			</div>
-		</div>
-	</div>
+			</div> <!-- ./hero-text -->
+		</div> <!-- ./hero-content -->
+	</div> <!-- ./hero -->
 	
 	<div class="main-content container">
 		<main class="text-center content-text">
 			<?php the_content(); //prints the content of the page ?> 
 		</main>
-	</div>
+	</div> <!-- ./main-content container -->
 
 <?php endwhile; //ends the while loop ?> 
 
@@ -41,8 +41,9 @@
 		<image src="<?php echo $image[0]; ?>" alt="image on box 1">
 		<div class="content-box">
 			<?php echo the_field('description_on_box1');?>
-		</div>
-	</div> <!-- box with image and text for "original recipes" -->
+		</div> <!-- ./content-box -->
+	</div> <!-- ./single-box --> <!-- box with image and text for "original recipes" -->
+	
 	<div class="single-box">
 		<?php 
 			$id_image = get_field('image_on_box2'); //get_field() will assign the value (the image ID that we set on the custom fields plugin) to the variable
@@ -51,8 +52,9 @@
 		<image src="<?php echo $image[0]; ?>" alt="image on box 2">
 		<div class="content-box">
 			<?php echo the_field('description_on_box2');?>
-		</div>
-	</div> <!-- box with image and text for "craft beer" -->
+		</div> <!-- ./content-box -->
+	</div> <!-- ./single-box --> <!-- box with image and text for "craft beer" -->
+	
 	<div class="single-box">
 		<?php 
 			$id_image = get_field('image_on_box3'); //get_field() will assign the value (the image ID that we set on the custom fields plugin) to the variable
@@ -61,8 +63,8 @@
 		<image src="<?php echo $image[0]; ?>" alt="image on box 2">
 		<div class="content-box">
 			<?php echo the_field('description_on_box3');?>
-		</div>
-	</div> <!-- box with image and text for "craft beer" -->
+		</div> <!-- ./content-box -->
+	</div> <!-- ./single-box --> <!-- box with image and text for "craft beer" -->
 </div>
 
 

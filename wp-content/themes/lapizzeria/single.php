@@ -14,9 +14,9 @@
 		<div class="hero-content">
 			<div class="hero-text">
 				<h2><?php the_title(); //prints the title of the page ?></h2>
-			</div>
-		</div>
-	</div>
+			</div> <!-- ./hero-text -->
+		</div> <!-- ./hero-content -->
+	</div> <!-- ./hero -->
 	
 	<div class="main-content container">
 		<main class="content-text">
@@ -37,7 +37,7 @@
 		
 		<div class="container comments">
 			<?php comment_form(); //prints the comment form ?>
-		</div>
+		</div> <!-- ./container comments -->
 		
 		<div class="container comment-list">
 			<ol class="comments_in_post"> <!-- en el curso: commentlist -->
@@ -52,8 +52,8 @@
 					), $comments);
 				?>
 			</ol>
-		</div>
-	</div>
+		</div> <!-- ./container comment-list -->
+	</div> <!-- ./main-content container -->
 
 <?php endwhile; //ends the while loop ?> 
 

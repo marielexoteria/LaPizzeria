@@ -1,6 +1,6 @@
 /*
 Theme name: La Pizzeria
-Theme URI: 
+Theme URI:
 Author: Mariel Backman
 Author URI: www.behance.net/marielbackman
 Description: Theme for restaurants. Created on the Udemy course "Profesional Wordpress Theme Development" by Juan Pablo de la Torre
@@ -96,7 +96,7 @@ img { /* this is needed so that the pictures on the boxes in "about us" (and in 
 
 .secondary {
 	background-color: #f19f30;
-	transition: background-color 0.5s ease; 
+	transition: background-color 0.5s ease;
 }
 
 .secondary:hover {
@@ -134,7 +134,7 @@ img.logoimage {
 	header.site-header .container {
 		position: relative;
 	}
-	
+
 	header.site-header .header-information {
 		position: absolute;
 		top: 0;
@@ -265,7 +265,7 @@ nav.site-nav ul li.current_page_parent a  {
 
 
 /* Beginning of: responsive menu button (hamburger menu) */
-@media only screen and (max-width: 767px) { 
+@media only screen and (max-width: 767px) {
 	.mobile-menu a {
 		height: 40px;
 		line-height: 40px;
@@ -354,7 +354,7 @@ nav.site-nav ul li.current_page_parent a  {
 
 /* Beginning of: boxes (about us page) */
 .box-information { /* css grid technique to style the boxes, only works for FF as per the course */
-	display: grid; 
+	display: grid;
 }
 
 @media screen and (min-width: 768px) {
@@ -394,7 +394,7 @@ nav.site-nav ul li.current_page_parent a  {
 	.single-box:nth-child(2) img  {
 		order: 2;
 	}
-	
+
 	.single-box:nth-child(2) div  {
 		order: 1;
 	}
@@ -480,34 +480,34 @@ footer p.copyright {
 		margin-left: -10px;
 		margin-right: -10px;
 	}
-	
+
 	.container-grid::after { /* applying a clear fix after using float */
 		content: '';
 		display: block;
 		clear: both;
 	}
-	
+
 	[class*='columns'] { /* will check for any class containing the word "columns" regardless of the numbers that follow it, such as <div class="columns(2-4)"> */
 		padding: 0 10px;
 		float: left;
 	}
-	
+
 	.columns1-4 {
 		width: 25%;
 	}
-	
+
 	.columns2-4 {
 		width: 50%;
 	}
-	
+
 	.columns3-4 {
 		width: 75%;
 	}
-	
+
 	.columns1-3 {
 		width: 33.3%;
 	}
-	
+
 	.columns2-3 {
 		width: 66.6%;
 	}
@@ -744,7 +744,7 @@ p.form-submit {
 }
 
 /*form.comment-form p.comment-form-cookies-consent label,
-form.comment-form input#wp-comment-cookies-consent { /* NEW CLASS ADDED IN WP DUE TO GPDR AND IT'S NOT ON THE COURSE. FIND A WAY TO STYLE THIS BETTER. PARA QUE ESTA CLASE SE VEA HAY QUE ABRIR LA PÁGINA EN MODO INCÓGNITO O SIN 
+form.comment-form input#wp-comment-cookies-consent { /* NEW CLASS ADDED IN WP DUE TO GPDR AND IT'S NOT ON THE COURSE. FIND A WAY TO STYLE THIS BETTER. PARA QUE ESTA CLASE SE VEA HAY QUE ABRIR LA PÁGINA EN MODO INCÓGNITO O SIN
 LOGUEARSE. */
 	/*display: none; /* POR AHORA PERO TENGO QUE RESOLVER ESO MÁS TARDE */
 /*}
@@ -850,6 +850,7 @@ form.reservation-form h2 {
 form.reservation-form .field {
 	margin-bottom: 20px;
 	width: 100%;
+	position: relative; /* needed to style the calendar picker, which was added via a polyfill */
 }
 
 form.reservation-form .field input,
@@ -897,7 +898,7 @@ form.reservation-form input[type="submit"] {
 		margin-top: 0;
 		padding: 0;
 	}
-	
+
 	.home div.hero-text {
 		width: 50%;
 	}
@@ -916,7 +917,8 @@ form.reservation-form input[type="submit"] {
 /* End of: front page > the best pizza in town */
 
 /* Beginning of: front page > our specialties */
-.specialty-content {
+.home .specialty-content { /* tuve que agregar el .home porque sino le quitaba el padding a
+	las fotos en "menu" (specialties) porque se recicla la clase .specialty-content */
 	position: relative;
 	overflow: hidden;
 	padding: 0;
@@ -939,7 +941,7 @@ form.reservation-form input[type="submit"] {
 	.specialty-content .information {
 		transition: all 0.5s ease-in-out;
 	}
-	
+
 	.specialty-content:hover .information  {
 		top: 0;
 		opacity: 1;
@@ -974,19 +976,129 @@ form.reservation-form input[type="submit"] {
 		display: block;
 		margin-bottom: 30px;
 	}
-	
+
 	.specialty-content .information {
 		position: relative;
 		opacity: 1;
 		background-color: #f19f30;
 		padding: 30px;
 	}
-	
+
 	.specialty-content img {
 		width: 100%;
 	}
+
+	.specialty-content a { /* agregué esto para que los botones de read more se desplegaran centralizados con respecto a la info*/
+		margin: 30px auto 0;
+		display: block;
+		width: 170px;
+		padding: 15px 30px;
+	}
 }
 /* End of: front page > our specialties */
+
+/* Beginning of: front page > fresh ingredients */
+section.fresh-ingredients {
+	background-image: url('img/bg_ingredients.jpg');
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	margin-top: 50px;
+	padding: 80px 0;
+	color: #fff;
+}
+
+section.fresh-ingredients h3 {
+	line-height: 60px;
+	font-size: 40px;
+	font-weight: 700;
+}
+
+section.fresh-ingredients p {
+	line-height: 40px;
+	font-size: 20px;
+}
+
+@media only screen and (max-width:767px) {
+	section.fresh-ingredients p,
+	section.fresh-ingredients h3 {
+		text-align: center;
+		padding: 0 10px; /* agregué esto porque el texto estaba muy pegado de las orillas */
+	}
+
+	section.fresh-ingredients a {
+		margin: 0 auto;
+		display: block;
+		width: 250px;
+	}
+}
+
+section.fresh-ingredients .image {
+	padding-top: 30px;
+	text-align: center;
+}
+
+section.fresh-ingredients  .image img  {
+	width: 80%;
+}
+/* End of: front paeg > fresh ingredients */
+
+/* Beginning of: location with Google Maps + reservation form */
+section.location-reservation{
+	background-image: url('img/bg_ingredients.jpg');
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	margin-top: 50px;
+}
+.home  .reservation-info { /* to remove the margin-left applied for the contact us page earlier in this document */
+	margin: 0;
+	color: #fff;
+	padding: 50px;
+}
+
+.home  .reservation-form h2 {
+	text-align: center;
+	font-size: 34px;
+	margin: 0 0 20px 0;
+	font-weight: 900;
+
+}
+
+.home  .reservation-form input,
+.home  .reservation-form textarea {
+	background-color: transparent;
+	border: 4px #fff solid !important;
+	color: #fff !important;
+}
+
+.home  .reservation-form input[type="submit"] {
+	background-color: #a61206;
+	border: none !important;
+}
+
+.home form.reservation-form  ::-webkit-input-placeholder {
+	color: #fff !important;
+}
+
+.home form.reservation-form  :moz-placeholder { /* targetting old versions of FF - for each browser there needs to be a separate copy (unlike putting them all separated with commas) - NO FUNCIONA */
+	color: #fff !important;
+	opacity: 1;
+}
+
+.home form.reservation-form  ::moz-placeholder { /* targetting new versions of FF - NO FUNCIONA */
+	color: #fff !important;
+	opacity: 1;
+}
+
+.home form.reservation-form  ::-ms-input-placeholder {
+	color: #fff !important;
+}
+
+#map {
+	height: 400px;
+}
+/* End of: location with Google Maps + reservation form */
 
 /* Beginning of:  */
 
