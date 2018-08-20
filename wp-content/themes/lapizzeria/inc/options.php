@@ -119,6 +119,7 @@
 						<th class="manage-column">E-mail</th>
 						<th class="manage-column">Phone Number</th>
 						<th class="manage-column">Message</th>
+						<th class="manage-column">Delete</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -135,6 +136,9 @@
 						<td><?php echo $reservation['email']; ?></td>
 						<td><?php echo $reservation['phone']; ?></td>
 						<td><?php echo $reservation['message']; ?></td>
+						<td>
+							<a href="#" class="delete_reservation" data-reservation="<?php echo $reservation['id'];?>">Delete</a>
+						</td>
 					</tr>
 						
 					<?php endforeach; ?>

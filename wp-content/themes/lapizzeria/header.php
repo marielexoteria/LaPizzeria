@@ -2,7 +2,6 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>La Pizzeria</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<!-- code to make the website iOS compatible -->
@@ -28,13 +27,11 @@
 		<header class="site-header">
 			<div class="container">
 				<div class="logo">
-					<!-- The WP function esc_url() removes dangerous or invalid characters from URLs and thus sanitizes data (https://codex.wordpress.org/Function_Reference/esc_url)
-					     home_url() gets the path of the URL that makes the home of the site (https://codex.wordpress.org/Function_Reference/home_url) -->
-					<a href="<?php echo esc_url(home_url('/')); ?>">
-						<!-- Using the WP function get_template_directory_uri we get the path where the folder 
-						     that contains the logo is, and all we need to do is add the sub-folder and file name -->
-						<img src="<?php echo get_template_directory_uri(); ?>/img/logo.svg" class="logoimage" alt="Logo" style="">
-					</a>
+					<?php
+						if (function_exists('the_custom_logo')) {
+							the_custom_logo(); //WP function that prints the logo uploaded in the customizer (WP console > Appearance > Customize > Site identity > Logo)
+						}
+					?>
 				</div> <!-- ./logo -->
 					
 				<!-- social media icons + contact info -->

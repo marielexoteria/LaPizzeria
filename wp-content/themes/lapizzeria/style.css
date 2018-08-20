@@ -126,7 +126,7 @@ div.logo { /* original del curso - no centraliza el logo */
 	}
 }
 
-img.logoimage {
+img.logoimage, img.custom-logo { /* tuve que agregar img.custom-logo porque sino el logo agregado vía WP console tomaba la propiedad width 100% definida en el global styling */
 	width: 250px;
 }
 
@@ -240,6 +240,48 @@ nav.site-nav ul  {
 		width: 1%;
 	}
 }
+
+/* beginning of main nav menu: adding a drop-down menu for the specialities */
+@media only screen and (min-width: 992px) {
+	nav.site-nav ul li.menu-item-has-children {
+		position: relative;
+	}
+
+	 nav.site-nav ul li.menu-item-has-children ul.sub-menu {
+		display: none;
+	}
+
+	nav.site-nav ul li.menu-item-has-children:hover ul.sub-menu {
+		display: block;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		z-index: 1000;
+		background-color: #fff;
+	}
+
+	nav.site-nav ul li.menu-item-has-children:hover ul.sub-menu li {
+		display: block;
+		padding-left: 30px;
+	}
+}
+
+@media only screen and (max-width: 991px) { /* added this (not in the course) to preserve the original mobile menu without the drop-down for the specialties (too long of a menu for a small screen) */
+	nav.site-nav ul li.menu-item-has-children ul.sub-menu {
+		display: none;
+	}
+
+	footer nav.menu-header-menu-container ul li.menu-item-has-children ul.sub-menu { /* to remove the children menu items from the menu in the footer on mobile and tablet */
+		display: none;
+	}
+}
+
+@media only screen and (min-width: 992px) { /* added this (not in the course) to preserve the original menu in the footer without the drop-down for the specialties (too long of a menu for a small screen) */
+	footer nav.menu-header-menu-container ul li.menu-item-has-children ul.sub-menu {
+		display: none;
+	}
+}
+/* end of main nav menu: adding a drop-down menu for the specialities */
 
 nav.site-nav ul li a {
 	text-align: center;
@@ -917,8 +959,7 @@ form.reservation-form input[type="submit"] {
 /* End of: front page > the best pizza in town */
 
 /* Beginning of: front page > our specialties */
-.home .specialty-content { /* tuve que agregar el .home porque sino le quitaba el padding a
-	las fotos en "menu" (specialties) porque se recicla la clase .specialty-content */
+.home .specialty-content { /* tuve que agregar el .home porque sino le quitaba el padding a las fotos en "menu" (specialties) porque se recicla la clase .specialty-content */
 	position: relative;
 	overflow: hidden;
 	padding: 0;
@@ -1041,7 +1082,7 @@ section.fresh-ingredients .image {
 section.fresh-ingredients  .image img  {
 	width: 80%;
 }
-/* End of: front paeg > fresh ingredients */
+/* End of: front page > fresh ingredients */
 
 /* Beginning of: location with Google Maps + reservation form */
 section.location-reservation{
@@ -1062,7 +1103,6 @@ section.location-reservation{
 	font-size: 34px;
 	margin: 0 0 20px 0;
 	font-weight: 900;
-
 }
 
 .home  .reservation-form input,

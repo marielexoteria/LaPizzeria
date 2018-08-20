@@ -27,10 +27,22 @@
 		
 		update_option('thumbnail_size_w', 253); //w = width; https://codex.wordpress.org/Function_Reference/update_option
 		update_option('thumbnail_size_h', 164); //h = height
+		
+		add_theme_support('title-tag'); //to enable adding custom titles to the WP pages from the WP console (for ex: About us - La Pizzeria, Menu - La Pizzeria, etc.)
+		
 	}
 
 	//The function will run in the hook "after_setup_theme"
 	add_action('after_setup_theme', 'lapizzeria_setup');
+	
+	function lapizzeria_custom_logo() {
+		$logo = array(
+			'height' => 200,
+			'width' => 250
+		);
+		add_theme_support('custom-logo', $logo); //to add a custom logo from WP console > Appearance > Customize > Site identity > Logo instead of opening header.php
+	}
+	add_action('after_setup_theme', 'lapizzeria_custom_logo');
 	
 	function lapizzeria_styles() {
 		//Will add the stylesheet
@@ -39,7 +51,7 @@
 		   first parameter 'style' = the name of the stylesheet 
 		   second parameter '' = the path of the stylesheet. Instead of hard-coding the path where the stylesheet is, 
 		   get_template_directory_uri() will get it automatically and all we need to provide is '/style,.css'
-		   array() = array of dependencies. for ex. if using Bootstrap, it needs to have add normalize.css first
+		   array() = array of dependencies that the file needs to run. For ex. if using Bootstrap, it needs to have add normalize.css first
 		   1.0 = version of the stylesheet
 		*/
 		wp_register_style('googlefont', 'https://fonts.googleapis.com/css?family=Open+Sans:400,700|Raleway:400,700,900', array(), '1.0.0'); //linking to Google fonts Open Sans and Raleway
@@ -64,12 +76,12 @@
 		   https://developer.wordpress.org/reference/functions/wp_enqueue_script/#default-scripts-included-and-registered-by-wordpress 
 		*/
 		wp_register_script('fluidboxjs', get_template_directory_uri() . '/js/jquery.fluidbox.min.js', array('jquery'), '1.0.0', true); //true = load the js in the before closing the HTML body tag (footer.php)
-		wp_register_script('debounce', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js', array(), '', true); //needed for fluidbox to work
+		wp_register_script('debounce', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js', array(), '1.1', true); //needed for fluidbox to work - not part of the course
 		wp_register_script('datetime-local-polyfill', get_template_directory_uri() . '/js/datetime-local-polyfill.js', array('jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'modernizr'), '', true); //adding the js needed for the polyfill to work (so that there's a calendar picker on the reservations form on FF)
+		wp_register_script('recaptcha', 'https://www.google.com/recaptcha/api.js');
 		wp_register_script('modernizr', 'https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js', array('jquery'), '', true); //needed for the polyfill to work
 		wp_register_script('script', get_template_directory_uri() . '/js/scripts.js', array('jquery'), '1.0.0', true);
 		
-		//Adding the script needed to embed the Google Maps to the front page
 		$apiKey = esc_html(get_option('lapizzeria_gmap_api_key'));
 		wp_register_script('googlemaps', 'https://maps.googleapis.com/maps/api/js?key='.$apiKey.'&callback=initMap', array(), '2.8.3', true); //needed to load the Google Maps API 
 		/* needed to be able to load the map with no probs: enable both the Maps Javascript API and the Geocoding API, solution from 
@@ -77,15 +89,15 @@
 		   using the API Key as specified above from La Pizzeria WP Theme ENG
 		*/
 		
-		
-		//Enqueues the Javascript files
+		//Adds the Javascript files
 		wp_enqueue_script('jquery');
 		wp_enqueue_script('jquery-ui-core'); //jQuery UI comes by default in WP and is needed for the polyfill to work (so that there's a calendar picker on the reservations form on FF)
 		wp_enqueue_script('jquery-ui-datepicker'); //jQuery UI comes by default in WP and is needed for the polyfill to work (so that there's a calendar picker on the reservations form on FF)
 		wp_enqueue_script('datetime-local-polyfill'); 
-		wp_enqueue_script('debounce'); //needed for fluidbox to work
+		wp_enqueue_script('debounce'); //needed for fluidbox to work - not part of the course (lo encontré yo en otra lección)
 		wp_enqueue_script('fluidboxjs');
 		wp_enqueue_script('modernizr');
+		wp_enqueue_script('recaptcha');
 		wp_enqueue_script('script'); //file for custom scripts
 		wp_enqueue_script('googlemaps'); /* needs to be last because otherwise it gives an error of initMap (function used in scripts.js) not being a function. Solution from https://www.udemy.com/photoshop-psd-to-wordpress-theme-development-from-scratch/learn/v4/questions/2306654 */
 		
@@ -100,7 +112,6 @@
 		);
 		/* script = the name of the JS file to pass info to
 		   options = the object that will take the info to pass to the array from inc > options.php
-		   latitu
 		*/
 		
 	}
@@ -109,6 +120,29 @@
 	   Needs the function wp_head() in header.php to implement the stylesheet on the WP theme
 	*/
 	add_action('wp_enqueue_scripts', 'lapizzeria_styles');
+	
+	//Function to link admin_ajax.js only on the admin part of WP (not on the front-end where visitors to the website can see it)
+	function lapizzeria_admin_scripts() {
+		//enqueuing Sweet Alert to produce a nicer looking alert box when a reservation is deleted
+		wp_enqueue_style('sweetalertcss', get_template_directory_uri(). '/css/sweetalert2.min.css');
+		wp_enqueue_script('sweetalertjs', get_template_directory_uri(). '/js/sweetalert2.min.js', array('jquery'), '1.0', true);
+		
+		wp_enqueue_script('adminjs', get_template_directory_uri(). '/js/admin_ajax.js', array('jquery'), '1.0', true);
+		wp_localize_script(
+			'adminjs',
+			'admin_ajax',
+			array(
+				'ajaxurl' => admin_url('admin-ajax.php')
+			)
+		);
+		/*
+			adminjs = the name of the where the values will be sent to
+			admin_ajax = the name of the object to be created and that will be used to access the values sent to adminjs
+			admin-ajax.php = WP native file that contains all the methods needed to run AJAX requests
+		*/
+	}
+	
+	add_action('admin_enqueue_scripts', 'lapizzeria_admin_scripts');
 	
 	//Adding nav and social media menus
 	function lapizzeria_menus() {
